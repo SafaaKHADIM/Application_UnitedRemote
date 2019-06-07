@@ -1,5 +1,7 @@
 package com.example.asus.internship.controller;
 
+import android.graphics.drawable.AnimationDrawable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -11,6 +13,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initViews();
+        getSupportActionBar().hide();
+
 
         swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
 
@@ -48,14 +53,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onRefresh(){
                 loadJSON();
-                Toast.makeText(MainActivity.this, "Github Users Refreshed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Github Repos Refreshed", Toast.LENGTH_SHORT).show();
             }
         });
+
+
+
     }
 
     private void initViews(){
         pd = new ProgressDialog(this);
-        pd.setMessage("Fetching Github Users...");
+        pd.setMessage("Fetching Github Repos...");
         pd.setCancelable(false);
         pd.show();
         recyclerView=(RecyclerView) findViewById(R.id.recyclerView);

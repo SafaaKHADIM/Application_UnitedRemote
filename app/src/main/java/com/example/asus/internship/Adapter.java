@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 
 import com.bumptech.glide.Glide;
+import com.example.asus.internship.controller.DetailRepos;
 import com.example.asus.internship.model.Item;
 
 import java.util.List;
@@ -38,7 +39,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>  {
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         viewHolder.title.setText(items.get(position).getName());
-        viewHolder.description.setText(items.get(position).getDescription());
+        viewHolder.owner.setText(items.get(position).getOwner().getLogin());
 
         Log.e("safaa", "description : "+items.get(position).getDescription());
         viewHolder.stars.setText(String.valueOf(items.get(position).getStargazersCount()));
@@ -54,7 +55,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>  {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView title, description,stars;
+        private TextView title, owner,stars;
 
         private ImageView avatar;
 
@@ -62,29 +63,39 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>  {
         public ViewHolder(View view) {
             super(view);
             title = (TextView) view.findViewById(R.id.title);
-            description = (TextView) view.findViewById(R.id.description);
-            description.setMovementMethod(new ScrollingMovementMethod());
+            //description = (TextView) view.findViewById(R.id.description);
+           // description.setMovementMethod(new ScrollingMovementMethod());
+            owner = (TextView) view.findViewById(R.id.owner);
             stars = (TextView) view.findViewById(R.id.stars);
             avatar = (ImageView) view.findViewById(R.id.avatar);
 
             //on item click
-           /* itemView.setOnClickListener(new View.OnClickListener() {
+            itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+
+
+                    desc(v);
+
+
+
+                }
+
+                private void desc(View v) {
                     int pos = getAdapterPosition();
                     if (pos != RecyclerView.NO_POSITION) {
                         Item clickedDataItem = items.get(pos);
-                        Intent intent = new Intent(context, DetailActivity.class);
-                        intent.putExtra("login", items.get(pos).getLogin());
-                        intent.putExtra("html_url", items.get(pos).getHtmlUrl());
-                        intent.putExtra("avatar_url", items.get(pos).getAvatarUrl());
+                        Intent intent = new Intent(context, DetailRepos.class);
+                        intent.putExtra("description", items.get(pos).getDescription());
+                        intent.putExtra("title", items.get(pos).getName());
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         context.startActivity(intent);
-                        Toast.makeText(v.getContext(), "You clicked " + clickedDataItem.getLogin(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(v.getContext(), "You clicked " + clickedDataItem.getName(), Toast.LENGTH_SHORT).show();
                     }
                 }
 
-            });*/
+            });
         }
     }
 }
